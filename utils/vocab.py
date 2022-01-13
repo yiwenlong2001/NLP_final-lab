@@ -28,7 +28,7 @@ class Vocab():
         word_freq = {}
         for data in trains:
             for utt in data:
-                text = utt['asr_1best']
+                text = utt['manual_transcript']
                 for char in text:
                     word_freq[char] = word_freq.get(char, 0) + 1
         for word in word_freq:

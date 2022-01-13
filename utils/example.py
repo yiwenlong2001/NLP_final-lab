@@ -27,8 +27,9 @@ class Example():
         super(Example, self).__init__()
         self.ex = ex
 
-        self.utt = ex['asr_1best']
+        self.utt = ex['manual_transcript']
         self.slot = {}
+        # slot = ['infrom-poi名称' : '森林豪庭']
         for label in ex['semantic']:
             act_slot = f'{label[0]}-{label[1]}'
             if len(label) == 3:
@@ -39,6 +40,7 @@ class Example():
             bidx = self.utt.find(value)
             if bidx != -1:
                 self.tags[bidx: bidx + len(value)] = [f'I-{slot}'] * len(value)
+                # print(self.tags)
                 self.tags[bidx] = f'B-{slot}'
         self.slotvalue = [f'{slot}-{value}' for slot, value in self.slot.items()]
         self.input_idx = [Example.word_vocab[c] for c in self.utt]
